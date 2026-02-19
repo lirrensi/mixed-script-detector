@@ -26,6 +26,14 @@ This tool crawls your website and identifies exactly where Latin characters mix 
 - **Pretty output**: Terminal UI with live progress, plus TXT and JSON export
 - **Context-aware**: Shows trigger phrases with surrounding context for easy location
 
+## Download
+
+**Non-technical users:** Grab the latest release from the [Releases page](https://github.com/lirrensi/mixed-script-detector/releases) — no installation needed!
+
+- **Windows:** Download `mixed-script-detector-windows-amd64.zip`, extract, and double-click the `.exe`
+- **macOS:** Download `mixed-script-detector-darwin-amd64.tar.gz` (Intel) or `darwin-arm64.tar.gz` (M1/M2), extract, and run
+- **Linux:** Download `mixed-script-detector-linux-amd64.tar.gz`, extract, and run
+
 ## Quick Start
 
 ### Interactive Mode (Recommended)
