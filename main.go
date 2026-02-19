@@ -257,7 +257,7 @@ func crawlPage(rawURL string, visited *sync.Map, results chan<- CrawlResult, pro
 
 	if resp.StatusCode != http.StatusOK {
 		statusMsg := fmt.Sprintf("HTTP %d %s", resp.StatusCode, resp.Status)
-		results <- CrawlResult{URL: rawURL, Status: StatusError, Error: fmt.Errorf(statusMsg)}
+		results <- CrawlResult{URL: rawURL, Status: StatusError, Error: fmt.Errorf("%s", statusMsg)}
 		progress <- Progress{URL: rawURL, Status: statusMsg, IsError: true, StatusCode: resp.StatusCode}
 		return
 	}
