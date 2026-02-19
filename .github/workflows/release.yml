@@ -53,23 +53,23 @@ jobs:
         run: |
           go build -o mixed-script-detector${{ matrix.suffix }} -v
 
-      - name: Create archive
+      - name: Create archive (Windows)
+        if: matrix.goos == 'windows'
+        shell: pwsh
+        run: |
+          Compress-Archive -Path mixed-script-detector.exe -DestinationPath mixed-script-detector-${{ matrix.goos }}-${{ matrix.goarch }}.zip -Force
+
+      - name: Create archive (Unix)
+        if: matrix.goos != 'windows'
         shell: bash
         run: |
-          mkdir -p dist
-          if [ "${{ matrix.goos }}" = "windows" ]; then
-            cp mixed-script-detector.exe dist/
-            cd dist && zip -r ../mixed-script-detector-${{ matrix.goos }}-${{ matrix.goarch }}.zip mixed-script-detector.exe
-          else
-            cp mixed-script-detector dist/
-            cd dist && tar -czf ../mixed-script-detector-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz mixed-script-detector
-          fi
+          tar -czf mixed-script-detector-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz mixed-script-detector
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: mixed-script-detector-${{ matrix.goos }}-${{ matrix.goarch }}
-          path: mixed-script-detector-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.zip' || '.tar.gz' }}
+          path: mixed-script-detector-${{ matrix.goos }}-${{ matrix.goarch }}.${{ matrix.goos == 'windows' && 'zip' || 'tar.gz' }}
           retention-days: 30
 
   release:
